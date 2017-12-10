@@ -1,0 +1,23 @@
+body {
+    margin:0;
+    font-size: 400%;
+    font-family: sans-serif;
+}
+
+.container {
+    height:75%;
+    width:98%;
+    text-align:center;
+}
+
+.row {
+    height:25%;
+    padding:2%;
+}
+
+input {
+    height:100%;
+    width:100%;
+    padding:10px;
+    font-size: 100%;
+}
