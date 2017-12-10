@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "noImplicitAny": true,
+        "noImplicitReturns": true,
+        "outFile": "docs/script/program.js",
+        "sourceMap": true
+    }
+}
