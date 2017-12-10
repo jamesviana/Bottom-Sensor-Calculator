@@ -12,6 +12,7 @@ var threeNumbers;
         result = $('#result');
         [input1, input2, input3].forEach(i => {
             i.addEventListener('keyup', getResult);
+            i.addEventListener('change', getResult);
             i.value = '0';
         });
         getResult();
