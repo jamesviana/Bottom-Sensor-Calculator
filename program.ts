@@ -1,11 +1,14 @@
 namespace threeNumbers {
-    type point = [number, number, number];
+    
+    class Point {
+        constructor(public x: number, public y: number, public z: number) { }
+    }
 
-    let $: Function = document.querySelector.bind(document); // this is just less typing.
-    let input1: HTMLInputElement;
-    let input2: HTMLInputElement;
-    let input3: HTMLInputElement;
-    let result: HTMLElement;
+    let $: Function = document.querySelector.bind(document); 
+    let input_a_z: HTMLInputElement;
+    let input_b_z: HTMLInputElement;
+    let input_c_z: HTMLInputElement;
+    let output: HTMLElement;
 
     const a_x = 0;
     const a_y = 1079.5;
@@ -14,15 +17,15 @@ namespace threeNumbers {
     const c_x = 1079.5;
     const c_y = 0;
     const d_x = 0;
-    const d_y = 1079.5;
+    const d_y = -1079.5;
 
     function init() {
-        input1 = $('#input1');
-        input2 = $('#input2');
-        input3 = $('#input3');
-        result = $('#result');
+        input_a_z = $('#input1');
+        input_b_z = $('#input2');
+        input_c_z = $('#input3');
+        output = $('#result');
 
-        [input1, input2, input3].forEach(i => {
+        [input_a_z, input_b_z, input_c_z].forEach(i => {
             i.addEventListener('keyup', getResult);
             i.addEventListener('change', getResult);
         });
@@ -30,26 +33,26 @@ namespace threeNumbers {
     }
 
     function getResult(): void {
-        let a_z = +input1.value;
-        let b_z = +input2.value;
-        let c_z = +input3.value;
+        let a = new Point(a_x, a_y, +input_a_z.value);
+        let b = new Point(b_x, b_y, +input_b_z.value);
+        let c = new Point(c_x, c_y, +input_c_z.value);
 
-        let a:point = [a_x, a_y, a_z];
-        let b:point = [b_x, b_y, b_z];
-        let c:point = [c_x, c_y, c_z];
+        let ab = new Point(b.x - a.x, b.y - a.y, b.z - a.z);
+        let ac = new Point(c.x - a.x, c.y - a.y, c.z - a.z);
+        let r = new Point(
+            (ab.y * ac.z) - (ac.y * ab.z),
+            ((ab.x * ac.z) - (ac.x * ab.z)) * -1,
+            (ab.x * ac.y) - (ac.x * ab.y)
+        );
 
-        let ab:point = [b_x - a_x, b_y - a_y, b_z - a_z];
-        let ac:point = [c_x - a_x, c_y - a_y, c_z - a_z];
-        let vector_result:point = [
-            (ab[1] * ac[2]) - (ac[1] * ab[2]),
-            
-        ];
-        let value = calculate(+input1.value, +input2.value, +input3.value);
-        result.innerText = '' + value;
-    }
+        let result = (
+            + (-r.x * d_x) 
+            - (r.y * d_y) 
+            + (r.y * a.y) 
+            + (r.z * a.z)
+        ) / r.z;
 
-    function calculate(v1: number, v2: number, v3: number): number {
-        return v1 + v2 + v3;
+        output.innerText = '' + result;
     }
 
     document.addEventListener("DOMContentLoaded", init);
